@@ -142,8 +142,7 @@ class MAM_Fin(ElementBase):
     name = 'fin'
     namespace = 'urn:xmpp:mam:2'
     plugin_attrib = 'mam_answer'
-    interfaces = set(['queryid', 'results'])
-    bool_interfaces = set(['complete'])
+    interfaces = set(['complete', 'queryid', 'results'])
 
     # The results interface is meant only as an easy
     # way to access the set of collected message responses

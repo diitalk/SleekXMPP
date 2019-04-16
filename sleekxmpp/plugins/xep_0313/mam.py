@@ -128,7 +128,7 @@ class Archive_Query:
         """
             NOTE: Also prepares request for next "page"
         """
-        if not response["mam_answer"]["complete"]:
+        if response["mam_answer"]["complete"] != 'true':
             self._last_message = response["mam_answer"]["rsm"]["last"]
             self._iq['mam']['rsm']['after'] = self._last_message
 
