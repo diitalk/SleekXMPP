@@ -28,7 +28,8 @@ class Archive_Query:
 
     def __init__(
         self, xmpp, start=None, end=None, with_jid=None, continue_after=None,
-                 number_of_queried_elements=None, collect_all=True, timeout=None, callback=None):
+                 number_of_queried_elements=None, collect_all=True,
+                 timeout=None, callback=None, to=None):
         self._xmpp = xmpp
         self.timeout = timeout
         self.collect_all = collect_all
@@ -46,6 +47,7 @@ class Archive_Query:
         self._query_id = iq['id']
 
         iq['type'] = 'set'
+        iq['to'] = to
         iq['mam']['queryid'] = self._query_id
         iq['mam']['start'] = start
         iq['mam']['end'] = end
@@ -187,7 +189,7 @@ class XEP_0313(BasePlugin):
     def retrieve(
         self, start=None, end=None, with_jid=None, continue_after=None,
                  number_of_queried_elements=None, collect_all=True, 
-                 block=True, timeout=None, callback=None):
+                 block=True, timeout=None, callback=None, to=None):
 
         query = Archive_Query(
             self.xmpp,
@@ -198,7 +200,8 @@ class XEP_0313(BasePlugin):
             number_of_queried_elements,
             collect_all,
             timeout,
-            callback)
+            callback,
+            to)
         query_id = query.get_id()
 
         self._open_queries[query_id] = query
